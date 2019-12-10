@@ -1,5 +1,7 @@
+# Dragonboot
 
-![License badge](https://img.shields.io/badge/license-GPLv3-blue.svg)
+[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.html)
+<a href="https://discord.gg/ez2HCgK"><img src="https://discordapp.com/api/guilds/488214231540301826/embed.png" alt="Discord Server" /></a>
 
 ## What is Dragonboot?
 
