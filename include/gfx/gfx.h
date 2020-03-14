@@ -30,8 +30,8 @@
 #define WHITE 0xFFFFFFFF
 #define BLACK 0xFF000000
 
-#define CHAR_WIDTH 8
-#define CHAR_HEIGHT 8
+#define CHAR_WIDTH 15
+#define CHAR_HEIGHT 32
 
 typedef struct _gfx_ctxt_t
 {
