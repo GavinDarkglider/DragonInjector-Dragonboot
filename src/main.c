@@ -39,6 +39,7 @@ static inline void setup_gfx()
     gfx_clear_buffer(&g_gfx_ctxt);
     gfx_con_init(&g_gfx_con, &g_gfx_ctxt);
     gfx_con_setcol(&g_gfx_con, 0xFFCCCCCC, 1, BLACK);
+    g_gfx_con.scale = 1;
 }
 
 void find_and_launch_payload(const char *folder)
@@ -85,6 +86,9 @@ void ipl_main()
 
     if(sd_mount())
     {
+        if(sd_file_read("dragonboot/splash.raw", g_gfx_ctxt.next))
+            gfx_swap_buffer(&g_gfx_ctxt);
+
         if(payload_num == 0)
         {
             find_and_launch_payload("dragonboot");

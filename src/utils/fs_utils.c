@@ -59,14 +59,20 @@ void sd_unmount()
 	}
 }
 
-void *sd_file_read(char *path)
+void *sd_file_read(char *path, void *ext_buf)
 {
 	FIL fp;
 	if (f_open(&fp, path, FA_READ) != FR_OK)
 		return NULL;
 
 	u32 size = f_size(&fp);
-	void *buf = malloc(size);
+
+	void *buf;
+
+	if(!ext_buf)
+		buf = malloc(size);
+	else
+		buf = ext_buf;
 
 	u8 *ptr = buf;
 	while (size > 0)
@@ -74,7 +80,8 @@ void *sd_file_read(char *path)
 		u32 rsize = MIN(size, 512 * 512);
 		if (f_read(&fp, ptr, rsize, NULL) != FR_OK)
 		{
-			free(buf);
+			if(!ext_buf)
+				free(buf);
 			return NULL;
 		}
 
