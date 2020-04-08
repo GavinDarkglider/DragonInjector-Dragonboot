@@ -90,7 +90,14 @@ void ipl_main()
 
     u8 payload_num = get_payload_num() + 1;
 
-    if(sd_mount())
+    if(mount(STORAGE_SOURCE_EMMC))
+    {
+	if(sd_file_read("coreboot.rom", null))
+		launch_payload("coreboot.rom");
+	unmount();
+    }
+    
+    if(mount(STORAGE_SOURCE_SDCARD))
     {
         if(sd_file_read("dragonboot/splash.raw", g_gfx_ctxt.next))
             gfx_swap_buffer(&g_gfx_ctxt);

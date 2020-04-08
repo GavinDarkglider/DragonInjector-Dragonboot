@@ -22,12 +22,18 @@
 #include "gfx/gfx.h"
 #include <string.h>
 
-bool sd_mount()
+bool mount(bool storage_source)
 {
+	int storage_init;
 	if (g_sd_mounted)
 		return true;
 
-	if (sdmmc_storage_init_sd(&g_sd_storage, &g_sd_sdmmc, SDMMC_1, SDMMC_BUS_WIDTH_4, 11))
+	if (storage_source) 
+		storage_init=sdmmc_storage_init_sd(&g_sd_storage, &g_sd_sdmmc, SDMMC_1, SDMMC_BUS_WIDTH_4, 11);
+	else
+		storage_init=sdmmc_storage_init_mmc(&g_sd_storage, &g_sd_sdmmc, SDMMC_4, SDMMC_BUS_WIDTH_8, 4);
+
+	if (storage_init)
 	{
 		int res = 0;
 		res = f_mount(&g_sd_fs, "", 1);
@@ -37,11 +43,10 @@ bool sd_mount()
 			return true;
 		}
 	}
-
 	return false;
 }
 
-void sd_unmount()
+void unmount()
 {
 	if (g_sd_mounted)
 	{
